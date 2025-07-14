@@ -1,0 +1,18 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build (Debug)",
+      "type": "shell",
+      "command": "cmake --build build/debug"
+    },
+    {
+      "label": "Build & Run (Debug)",
+      "type": "shell",
+      "command": "./build/debug",
+      "dependsOn": [
+        "Build (Debug)"
+      ]
+    }
+  ]
+}

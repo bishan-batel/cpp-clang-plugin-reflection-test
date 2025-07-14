@@ -15,7 +15,7 @@
 
       devShells = { 
         default = pkgs.mkShell.override {
-          stdenv = pkgs.clang18Stdenv;
+          stdenv = pkgs.llvmPackages_20.stdenv;
         } {
             name = "na-engine";
             packages = with pkgs; [
@@ -27,15 +27,15 @@
             ];
 
             buildInputs = with pkgs; [
-              llvmPackages_18.lldb 
-              llvmPackages_18.clang-tools
-              llvmPackages_18.clang
+              llvmPackages_20.lldb 
+              llvmPackages_20.clang-tools
+              llvmPackages_20.clang
 
               pkg-config
             ];
 
             nativeBuildInputs = with pkgs; [ 
-              llvmPackages_18.clang
+              llvmPackages_20.clang
             ] ++ libPath;
 
             LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath libPath;
