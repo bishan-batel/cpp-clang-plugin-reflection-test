@@ -8,8 +8,14 @@ public:
 
   NA_METHOD() auto bruh() -> void {}
 
+  /**
+   * @brief Sets 'what' property
+   */
   NA_METHOD() auto set_what(i32 x) -> void { what = x; }
 
+  /**
+   * @brief Gets 'what' property
+   */
   [[nodiscard]]
   NA_METHOD() auto get_what() const -> i32 {
     return what;

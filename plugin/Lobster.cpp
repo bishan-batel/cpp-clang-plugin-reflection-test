@@ -66,6 +66,16 @@ public:
 
     assert(!ec && "error opening file");
 
+    os << std::format(
+      R"( /**
+* GENERATED FILE, DO NOT EDIT
+*/
+#include "{}"
+#include <lobster.hpp>
+)",
+      input_filename
+    );
+
     for (ReflectedClass& ref: classes) {
       ref.generate(context, input_filename, os);
     }
@@ -76,7 +86,7 @@ public:
 
     filename = input_filename;
     filename.erase(filename.end() - 4, filename.end());
-    filename.append(".generated.hxx");
+    filename.append(".generated.cc");
 
     classes.emplace_back(record);
   }

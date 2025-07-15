@@ -93,6 +93,7 @@ namespace lobster {
     Vec<Type> arg_types{};
     Vec<String> arg_names{};
     Type return_type;
+    String documentation{};
   };
 
   struct ClassMeta final {
@@ -100,6 +101,7 @@ namespace lobster {
     std::type_index type;
     Option<String> base{};
     Vec<Method> methods;
+    String documentation{};
   };
 
   class Registry {
@@ -126,9 +128,13 @@ namespace lobster {
 
     template<typename T>
     struct AddClass final {
-      AddClass(String name, String base, Vec<Method> methods) {
+      AddClass(String name, String base, Vec<Method> methods, String comment) {
         _register_class<T>(
-          {std::move(name), typeid(T), std::move(base), methods}
+          {std::move(name),
+           typeid(T),
+           std::move(base),
+           methods,
+           std::move(comment)}
         );
       }
     };

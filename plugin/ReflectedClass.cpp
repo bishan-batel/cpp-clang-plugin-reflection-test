@@ -1,5 +1,6 @@
 #include "ReflectedClass.hpp"
 #include <clang/AST/Decl.h>
+#include <clang/AST/RawCommentList.h>
 #include <clang/AST/Type.h>
 #include <clang/Basic/Specifiers.h>
 #include <functional>
@@ -91,31 +92,35 @@ void ReflectedClass::generate(
       continue;
     }
 
+    method << R"(, R"_DELIMITER2_()";
+
+    RawComment* comment = ctx->getRawCommentForDeclNoCache(func);
+
+    if (comment) {
+      method << comment->getBriefText(*ctx);
+    }
+
+    method << R"()_DELIMITER2_")";
+
     method << "},";
     methods_streams << method.str();
   }
 
   os << std::format(
-    R"(
-/** 
- * GENERATED FILE, DO NOT EDIT
- */
-
-#include "{3}"
-#include <lobster.hpp>
-
+    R"__DELIMITER__(
 namespace {{ 
   static lobster::Registry::AddClass<{0}> CLASS_REGISTRY_{0}{{ 
     "{0}", 
     "{1}", 
-    {{{2}}} 
+    {{{2}}},
+    R"__DELIMITER2__({3})__DELIMITER2__"
   }}; 
 }}
-  )",
+  )__DELIMITER__",
     record->getNameAsString(),
     base,
     methods_streams.str(),
-    input_file
+    ""
   );
 }
 

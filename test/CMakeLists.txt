@@ -4,7 +4,7 @@ file(GLOB_RECURSE REFLECTION_SOURCES *.hpp)
 # list(APPEND GENERATED_SOURCES)
 
 foreach(SOURCE IN ITEMS ${REFLECTION_SOURCES})
-  string(REPLACE ".hpp" ".generated.hxx" SOURCE ${SOURCE})
+  string(REPLACE ".hpp" ".generated.cc" SOURCE ${SOURCE})
   message("Source output to ${SOURCE}")
   list(APPEND GENERATED_SOURCES ${SOURCE})
 endforeach()

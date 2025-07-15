@@ -3,7 +3,6 @@
 #include "lobster.hpp"
 
 #include "TestClass.hpp"
-#include "TestClass.generated.hxx"
 
 int main() {
   std::cout
