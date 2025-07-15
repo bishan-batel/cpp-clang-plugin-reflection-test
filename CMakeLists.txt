@@ -40,5 +40,6 @@ include(cmake/CPM.cmake)
 
 CPMAddPackage("gh:bishan-batel/crab#reference-type-support")
 
+add_subdirectory(lobster)
 add_subdirectory(plugin)
-add_subdirectory(src)
+add_subdirectory(test)

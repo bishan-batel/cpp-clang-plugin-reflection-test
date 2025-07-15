@@ -9,7 +9,7 @@
     {
       "label": "Build & Run (Debug)",
       "type": "shell",
-      "command": "./build/debug",
+      "command": "./build/debug/test/reflection-test",
       "dependsOn": [
         "Build (Debug)"
       ]

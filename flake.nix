@@ -11,11 +11,12 @@
     }: flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
       libPath = with pkgs; [ ]; 
+      llvm = pkgs.llvmPackages_20;
     in {
 
       devShells = { 
         default = pkgs.mkShell.override {
-          stdenv = pkgs.llvmPackages_20.stdenv;
+          stdenv = llvm.stdenv;
         } {
             name = "na-engine";
             packages = with pkgs; [
@@ -27,15 +28,18 @@
             ];
 
             buildInputs = with pkgs; [
-              llvmPackages_20.lldb 
-              llvmPackages_20.clang-tools
-              llvmPackages_20.clang
+              llvm.lldb 
+              llvm.clang-tools
+              llvm.clang
+              llvm.clang.cc
+              llvm.llvm
+              llvm.libclang
 
               pkg-config
             ];
 
             nativeBuildInputs = with pkgs; [ 
-              llvmPackages_20.clang
+              llvm.clang
             ] ++ libPath;
 
             LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath libPath;
